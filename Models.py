@@ -8,7 +8,7 @@ class Models:
 
     def prepareData(self):
         self.createVector = ModelCreateVector()
-        self.userDataVector, self.modelAggData = self.createVector.mainFunc()
+        self.userDataTrainVector, self.userDataTestVector,self.modelAggData = self.createVector.mainFunc()
 
     def getModelToBeUsed(self,key):
         svm=SVMClassifier(key)
@@ -16,8 +16,8 @@ class Models:
 
     def trainModel(self):
 
-        for key in self.userDataVector:
-            modelVectorData=self.userDataVector[key]
+        for key in self.userDataTrainVector:
+            modelVectorData=self.userDataTrainVector[key]
             userAppsList = self.modelAggData.userApps[key]
             print(userAppsList)
             print(len(userAppsList))
@@ -32,16 +32,19 @@ class Models:
             print("Classification for user "+key+" done")
 
     def predictData(self):
-
-        for key in self.userDataVector:
+        for key in self.userDataTestVector:
+            print(key)
             svm=self.getModelToBeUsed(key)
-            modelVectorData=self.userDataVector[key]
+            modelVectorData=self.userDataTestVector[key]
             userAppsList = self.modelAggData.userApps[key]
+            print(len(userAppsList))
             ##print(modelVectorData.predict)
             inputDataArr=np.array(modelVectorData.inputData)
             predictArr=np.array(modelVectorData.predict)
             count=0
+            totalCount=0
             for i in range(0,len(inputDataArr)):
+                totalCount=totalCount+1
                 ##index=self.svm.predict(inputDataArr[i])
                 indexs=svm.predictProbability(inputDataArr[i])
                 orIndex=modelVectorData.predict[i]
@@ -52,13 +55,14 @@ class Models:
                 if(appName in appsPredicted):
                     count=count+1
 
-                print(userAppsList[orIndex]+" "+userAppsList[indexs[0]])
+                ##print(userAppsList[orIndex]+" "+userAppsList[indexs[0]])
             print(count)
+            print(totalCount)
 
             print("Classification for user "+key+" done")
 
 
 m=Models()
 m.prepareData()
-##m.trainModel()
+m.trainModel()
 m.predictData()

@@ -15,6 +15,7 @@ class FeatureData:
         self.charging=int(charging)
         self.geoCluster=-1
         self.timeCluster=-1
+        self.dataType="train"
 
     def convertUnixTimestamp(self,java_time_millis):
         ds = datetime.datetime.fromtimestamp(
@@ -23,6 +24,16 @@ class FeatureData:
                         microsecond=int(str(java_time_millis)[10:]) * 1000)
         ##ds=ds.strftime("%H:%M")
         ds = ds.strftime("%H")
+        return ds
+
+    def convertTimeToDay(self,java_time_millis):
+        ds = datetime.datetime.fromtimestamp(
+            int(str(java_time_millis)[:10])) if java_time_millis else None
+        ds = ds.replace(hour=ds.hour, minute=ds.minute, second=ds.second,
+                        microsecond=int(str(java_time_millis)[10:]) * 1000)
+        ##ds=ds.strftime("%H:%M")
+        ds = ds.strftime("%d")
+        ##print(ds)
         return ds
 
     def convertWifiValue(self,wifi):

@@ -8,11 +8,12 @@ class ModelCreateVector:
     def mainFunc(self):
         modelCreateData=ModelCreateData()
         modelAggData=modelCreateData.mainFunc()
-        userDataVector=self.convertDataIntoVector(modelAggData)
-        return userDataVector,modelAggData
+        userDataTrainVector,userDataTestVector=self.convertDataIntoVector(modelAggData)
+        return userDataTrainVector,userDataTestVector,modelAggData
 
     def convertDataIntoVector(self,modelAggData):
-        userDataVector={}
+        userDataTrainVector={}
+        userDataTestVector={}
         userObjMap=modelAggData.userObjMap
         for key in userObjMap:
             timeList=modelAggData.userTimeCluster[key]
@@ -21,8 +22,10 @@ class ModelCreateVector:
             userGeoList = modelAggData.userGeoMap[key]
             userAudioList=modelAggData.userAudioCluster[key]
             featureDataList=userObjMap[key]
-            userHotVector=[]
-            userAppUsed=[]
+            userHotTrainVector=[]
+            userAppTrainUsed=[]
+            userHotTestVector = []
+            userAppTestUsed = []
             for data in featureDataList:
                 vectorData=[]
                 vectorData=self.createVectorForList(data.timeCluster,timeList,vectorData)
@@ -34,10 +37,15 @@ class ModelCreateVector:
                 vectorData.append(data.illuminance)
                 vectorData.append(data.weekday)
                 vectorData.append(data.charging)
-                userAppUsed.append(userAppsList.index(data.appName))
-                userHotVector.append(vectorData)
-            userDataVector[key]=ModelVectorData(userHotVector,userAppUsed)
-        return userDataVector
+                if(data.dataType=="train"):
+                    userAppTrainUsed.append(userAppsList.index(data.appName))
+                    userHotTrainVector.append(vectorData)
+                    userDataTrainVector[key]=ModelVectorData(userHotTrainVector,userAppTrainUsed)
+                else:
+                    userAppTestUsed.append(userAppsList.index(data.appName))
+                    userHotTestVector.append(vectorData)
+                    userDataTestVector[key] = ModelVectorData(userHotTestVector, userAppTestUsed)
+        return userDataTrainVector,userDataTestVector
 
 
 

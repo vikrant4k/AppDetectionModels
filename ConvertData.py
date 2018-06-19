@@ -25,6 +25,8 @@ class ConvertData:
                 for data in userData:
                     dataArr=data.split(",");
                     featureData=FeatureData(dataArr[0],dataArr[1],dataArr[2],dataArr[3],dataArr[4],dataArr[5],dataArr[6],dataArr[7],dataArr[8],dataArr[9],dataArr[10])
+                    if(featureData.convertTimeToDay(dataArr[0])=="15"):
+                        featureData.dataType="test"
                     userObjList.append(featureData)
             userObjMap[key]=userObjList
         return userObjMap

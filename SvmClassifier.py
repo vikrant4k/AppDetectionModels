@@ -43,7 +43,7 @@ class SVMClassifier:
                     problList[i]=problList[j]
                     problList[j]=temp
         indexs=[]
-        for i in range(0,1):
+        for i in range(0,4):
             indexs.append(problList[i][1])
         return indexs
 
