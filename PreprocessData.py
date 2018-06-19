@@ -1,4 +1,8 @@
 from ConvertData import ConvertData
+from GeographicalCluster import GeographicalCluster
+from LauncherCapture import LauncherCapture
+from IllumPreProcess import Illuminace
+from TimeClassifier import TimeClassifier
 class PreProcessData:
 
     def __init__(self):
@@ -8,9 +12,17 @@ class PreProcessData:
         convertData=ConvertData()
         userObjMap=convertData.mainFunc()
         for key in userObjMap:
+            geoCluster = GeographicalCluster()
             featureDataList=userObjMap[key]
+            featureDataList=LauncherCapture().removeLauncher(featureDataList)
+            featureDataList=Illuminace().normalizeIlluminace(featureDataList)
             featureDataList=self.fillInMissingValue(featureDataList)
+            featureDataList=geoCluster.mainFunc(featureDataList)
+            featureDataList=TimeClassifier().convertTimeToQuarters(featureDataList)
             userObjMap[key]=featureDataList
+        return userObjMap
+
+
 
 
 
@@ -73,8 +85,9 @@ class PreProcessData:
 
 
 
-pr=PreProcessData()
-pr.mainFunc()
+
+##pr=PreProcessData()
+##pr.mainFunc()
 
 
 

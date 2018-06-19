@@ -1,0 +1,11 @@
+class Constants:
+    IN_VEHICLE = 0
+    ON_BICYCLE = 1
+    ON_FOOT = 2
+    RUNNING = 8
+    STILL = 3
+    TILTING = 5
+    UNKNOWN = 4
+    WALKING = 7
+    GEO_WALKING_RUNNING_TRAVELLING=0
+    GEO_UNKNOWN=1

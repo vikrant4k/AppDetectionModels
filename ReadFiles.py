@@ -16,7 +16,7 @@ class ReadFiles:
     def readFolder(self,folderPaths):
         mapData={}
         for folderPath in folderPaths:
-            fileNames=glob.glob(folderPath+"/*.csv");
+            fileNames=glob.glob(folderPath+"/train/*.csv");
             userData=[]
             for fileName in fileNames:
                 userData.append(self.readFile(fileName))

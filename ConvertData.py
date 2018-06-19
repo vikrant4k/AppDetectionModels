@@ -13,7 +13,7 @@ class ConvertData:
 
     def readFiles(self):
         re=ReadFiles()
-        userDataMap=re.readFolder(["/home/vik1/Downloads/data/vikrant"])
+        userDataMap=re.readFolder(["/home/vik1/Downloads/data/vikrant/"])
         return userDataMap
 
     def convertDataToObj(self,userDataMap):
