@@ -1,26 +1,23 @@
-from sklearn import svm
-import numpy as np
+from sklearn.neural_network import MLPClassifier
 from SaveModels import SaveModels
-class SVMClassifier:
+import numpy as np
+class NueralNetworkClassifier:
 
     def __init__(self,key):
-        model=SaveModels.readModel(key,"svm")
-        if(model is not None):
+        model = SaveModels.readModel(key, "nueral")
+        if (model is not None):
             print("File Model Used")
-            self.clf=model
+            self.clf = model
         else:
             print("New Model Created")
-            self.clf = svm.SVC(decision_function_shape='ovo',probability=True,kernel='poly',degree=6)
+            self.clf=MLPClassifier((300,300,400,600,900,600,300,100,50,25),learning_rate='adaptive',max_iter=1000,verbose=True,tol=0.00001)
 
     def train(self,userData,output):
-        print("SVM Fitting started ")
+        print("Nueral Fitting started ")
         self.clf.fit(userData,output)
 
     def saveModel(self,key):
-        SaveModels.saveModel(key,self.clf,"svm")
-
-    def deleteModel(self,key):
-        SaveModels.deleteModel(key,"svm")
+        SaveModels.saveModel(key,self.clf,"nueral")
 
     def predict(self,userData):
         userData=np.reshape(userData,(1,-1))
@@ -49,8 +46,4 @@ class SVMClassifier:
         for i in range(0,4):
             indexs.append(problList[i][1])
         return indexs
-
-
-
-
 

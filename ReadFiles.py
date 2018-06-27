@@ -2,9 +2,6 @@ import glob
 
 class ReadFiles:
 
-    def __init__(self):
-        print("Read Files Started");
-
 
     def readFile(self,filename):
         userDayData=[]

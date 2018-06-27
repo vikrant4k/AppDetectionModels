@@ -3,6 +3,7 @@ class FeatureData:
 
     def __init__(self,timestamp,appName,activityType,lat,lon,bluetooth,audio,wifi,illuminance,weekday,charging):
         self.timestamp=self.convertUnixTimestamp(timestamp);
+        self.timeIni=int(timestamp)
         self.activityType=int(activityType)
         self.appName=appName;
         self.lat=float(lat);
@@ -31,7 +32,7 @@ class FeatureData:
             int(str(java_time_millis)[:10])) if java_time_millis else None
         ds = ds.replace(hour=ds.hour, minute=ds.minute, second=ds.second,
                         microsecond=int(str(java_time_millis)[10:]) * 1000)
-        ##ds=ds.strftime("%H:%M")
+        ##ds=ds.strftime("%H.%M")
         ds = ds.strftime("%d")
         ##print(ds)
         return ds

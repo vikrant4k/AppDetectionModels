@@ -1,9 +1,9 @@
 import pickle
 import os.path
+import os
 class SaveModels:
 
-    def __init__(self):
-        print("save model initiated")
+
 
     def saveModel(key,model,modelName):
         with open(key+modelName+'.pkl', 'wb') as output:
@@ -16,3 +16,6 @@ class SaveModels:
             return model
         else:
             return None
+
+    def deleteModel(key,modelName):
+        os.remove(key+modelName+'.pkl')

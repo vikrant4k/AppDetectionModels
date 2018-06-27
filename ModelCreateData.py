@@ -3,7 +3,7 @@ from ModelAggData import ModelAggData
 class ModelCreateData:
 
     def __init__(self):
-        print("Model Preprocessing Initiated")
+
         self.preprocess=PreProcessData()
 
     def mainFunc(self):

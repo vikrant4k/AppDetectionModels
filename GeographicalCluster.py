@@ -1,12 +1,21 @@
 import numpy as np
 import hdbscan
 from Constants import Constants
+from sklearn.cluster import DBSCAN
 class GeographicalCluster:
 
     def __init__(self):
-        print("Clustering Init")
+
+        ms_per_radian = 6371000.0088
+        epsilon = 500 / ms_per_radian
         self.clusterer = hdbscan.HDBSCAN(min_cluster_size=5, gen_min_span_tree=True,metric='haversine')
+
+
+
     def mainFunc(self,featureDataList):
+        ##geoCluster=GeoClusterT()
+        ##geoCluster.createCluster(featureDataList)
+        ##predictArr=geoCluster.getClusterIndex(featureDataList)
         radianArr=self.convertDataToRadians(featureDataList)
         predictArr=self.fitData(radianArr)
         featureDataList=self.predictData(featureDataList,predictArr)
